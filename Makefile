@@ -34,7 +34,7 @@ clean:
 ###############################################################################
 # Cross-compilation environment (inside each Docker image)
 ###############################################################################
-GO_PACKAGE = github.com/steeve/$(NAME)
+GO_PACKAGE = github.com/sharkone/$(NAME)
 
 CC         = cc
 CXX        = c++
