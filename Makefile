@@ -15,7 +15,7 @@ PLATFORMS = android-arm     \
             windows-x64
 
 DOCKER       = docker
-DOCKER_IMAGE = steeve/$(NAME)
+DOCKER_IMAGE = sharkone/$(NAME)
 DOCKER_FILES = $(addsuffix /Dockerfile, $(PLATFORMS))
 
 all: build
