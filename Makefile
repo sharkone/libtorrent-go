@@ -90,7 +90,7 @@ $(OUT_LIBRARY):
 	PATH=.:$$PATH \
 	go install -v -x
 
-$(OUT_LIBRARY_SHARED): cc-clean $(OUT_LIBRARY)
+$(OUT_LIBRARY_SHARED): $(OUT_LIBRARY)
 	mv $(OUT_LIBRARY) $(OUT_LIBRARY).raw
 		cd `mktemp -d` && \
 		ar x $(OUT_LIBRARY).raw && \
