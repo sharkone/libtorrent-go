@@ -6,13 +6,7 @@ NAME = libtorrent-go
 ###############################################################################
 # Development environment
 ###############################################################################
-PLATFORMS = android-arm     \
-            darwin-x64      \
-            linux-x86       \
-            linux-x64       \
-            linux-arm       \
-            windows-x86     \
-            windows-x64
+PLATFORMS = android-arm darwin-x64 linux-x86 linux-x64 linux-arm windows-x86 windows-x64
 
 DOCKER       = docker
 DOCKER_IMAGE = sharkone/$(NAME)
@@ -48,11 +42,10 @@ endif
 ifneq ($(CROSS_ROOT),)
 	CROSS_CFLAGS    = -I$(CROSS_ROOT)/include -I$(CROSS_ROOT)/$(CROSS_TRIPLE)/include
 	CROSS_LDFLAGS   = -L$(CROSS_ROOT)/lib
-	PKG_CONFIG_PATH = $(CROSS_ROOT)/lib/pkgconfig
 endif
 
-LIBTORRENT_CFLAGS  = $(shell PKG_CONFIG_PATH=$(PKG_CONFIG_PATH) $(PKG_CONFIG) --cflags libtorrent-rasterbar)
-LIBTORRENT_LDFLAGS = $(shell PKG_CONFIG_PATH=$(PKG_CONFIG_PATH) $(PKG_CONFIG) --static --libs libtorrent-rasterbar)
+LIBTORRENT_CFLAGS  = $(shell $(PKG_CONFIG) --cflags libtorrent-rasterbar)
+LIBTORRENT_LDFLAGS = $(shell $(PKG_CONFIG) --static --libs libtorrent-rasterbar)
 DEFINE_IGNORES     = __STDC__|_cdecl|__cdecl|_fastcall|__fastcall|_stdcall|__stdcall|__declspec
 CC_DEFINES         = $(shell echo | $(CC) -dM -E - | grep -v -E "$(DEFINE_IGNORES)" | sed -E "s/\#define[[:space:]]+([a-zA-Z0-9_()]+)[[:space:]]+(.*)/-D\1="\2"/g" | tr '\n' ' ')
 
@@ -84,7 +77,6 @@ $(OUT_LIBRARY):
 	SWIG_FLAGS='$(CC_DEFINES) $(LIBTORRENT_CFLAGS)' \
 	SONAME=$(SONAME) \
 	CC=$(CC) CXX=$(CXX) \
-	PKG_CONFIG_PATH=$(PKG_CONFIG_PATH) \
 	CGO_ENABLED=1 \
 	GOOS=$(CROSS_GOOS) GOARCH=$(CROSS_GOARCH) GOARM=$(CROSS_GOARM) \
 	PATH=.:$$PATH \

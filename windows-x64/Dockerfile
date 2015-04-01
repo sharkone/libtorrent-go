@@ -1,5 +1,5 @@
-FROM steeve/cross-compiler:windows-x64
-MAINTAINER Steeve Morin "steeve.morin@gmail.com"
+FROM sharkone/cross-compiler:windows-x64
+MAINTAINER Thomas Texier "sharkone@en-mousse.org"
 
 RUN mkdir -p /build
 WORKDIR /build

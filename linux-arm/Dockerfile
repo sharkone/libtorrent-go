@@ -1,5 +1,5 @@
-FROM steeve/cross-compiler:linux-arm
-MAINTAINER Steeve Morin "steeve.morin@gmail.com"
+FROM sharkone/cross-compiler:linux-arm
+MAINTAINER Thomas Texier "sharkone@en-mousse.org"
 
 RUN mkdir -p /build
 WORKDIR /build
